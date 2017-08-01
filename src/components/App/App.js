@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import logo from '../../logo.svg';
 import './App.css';
-/* eslint-disable */
+
 class App extends Component {
+
+    static propTypes = {
+        actions: PropTypes.object.isRequired
+    }
+
+    componentDidMount() {
+        this.props.actions.initialize();
+    }
+
     render() {
         return (
             <div className="App">

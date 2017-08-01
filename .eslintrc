@@ -23,9 +23,11 @@
       "react/forbid-prop-types": "off",
       "import/prefer-default-export": ["warn"],
       "import/no-unresolved": "off",
-      "react/jsx-filename-extension": "off"
+      "react/jsx-filename-extension": "off",
+      "padded-blocks": "off"
   },
-   "parserOptions": {
+  "parser": "babel-eslint",
+  "parserOptions": {
        "ecmaFeatures": {
            "jsx": true,
            "modules": true,
