@@ -1,16 +1,18 @@
-import assign from 'lodash/assign';
+import { ActionTypes } from './constants';
 
-const defaultState = {
-    hello: 'world',
-    number: 0
+const initialState = {
+    isLoading: true,
+    priceHistory: []
 };
 
-export default function rootReducer(state = defaultState, action) {
+export default function rootReducer(state = initialState, action) {
     switch (action.type) {
-        case 'INITIALIZE':
-            return assign({}, {
-                number: 1
-            });
+        case ActionTypes.INITIALIZE:
+            return {
+                ...state,
+                isLoading: false,
+                priceHistory: action.payload
+            };
         default:
             return state;
     }
