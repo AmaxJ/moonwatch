@@ -3,12 +3,14 @@ export const ActionTypes = {
     INITIALIZE: 'INITIALIZE',
     RECIEVE_COIN_DATA: 'RECIEVE_COIN_DATA',
     STOP_LOADING: 'STOP_LOADING',
-    START_LOADING: 'START_LOADING'
+    START_LOADING: 'START_LOADING',
+    PRICE_UPDATE: 'PRICE_UPDATE'
 };
 
 export const Endpoints = {
     MINUTE_HISTORY: 'https://min-api.cryptocompare.com/data/histominute',
-    COIN_SNAPSHOT: 'https://www.cryptocompare.com/api/data/coinsnapshot'
+    COIN_SNAPSHOT: 'https://www.cryptocompare.com/api/data/coinsnapshot',
+    SOCKET: 'https://streamer.cryptocompare.com/'
 };
 
 export const Currencies = {

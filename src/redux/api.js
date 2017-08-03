@@ -1,4 +1,5 @@
 import axios from 'axios';
+import io from 'socket.io-client';
 import keys from 'lodash/keys';
 import each from 'lodash/each';
 import { Endpoints } from '../constants';
@@ -27,4 +28,8 @@ export function queryString(queryParams) {
         params.append(key, queryParams[key]);
     });
     return params.toString();
+}
+
+export function makeSocketConnection() {
+    return io(Endpoints.SOCKET);
 }

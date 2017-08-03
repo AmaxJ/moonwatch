@@ -1,6 +1,9 @@
 import { ActionTypes, Currencies, Exchanges } from '../constants';
-import { getMinuteHistory, getCoinSnapshot } from './api';
+import { getMinuteHistory, getCoinSnapshot, makeSocketConnection } from './api';
 /* eslint-disable no-console */
+
+let socket;
+
 export default {
 
     initialize() {
@@ -14,6 +17,13 @@ export default {
             return getMinuteHistory(params)
                 .then((priceHistory) => {
                     dispatch(initialize(priceHistory));
+                    socket = makeSocketConnection();
+                    const subs = ['2~Coinbase~ETH~USD'];
+                    socket.emit('SubAdd', { subs });
+                    socket.on('m', (message) => {
+                        dispatch(priceUpdate(message));
+                    });
+
                 })
                 .catch(console.error); // TODO replace with real error handling
         };
@@ -36,6 +46,18 @@ export default {
     }
 
 };
+//TODO unsub and sub methods for socket
+
+/*
+Current-price Socket Response is a string in the following format:
+{Type}~{ExchangeName}~{FromCurrency}~{ToCurrency}~
+{Flag}~{Price}~{LastUpdate}~{LastVolume}~
+{LastVolumeTo}~{LastTradeId}~{Volume24h}~
+{Volume24hTo}~{MaskInt}'
+*/
+export function priceUpdate(payload) {
+    return { type: ActionTypes.PRICE_UPDATE, payload };
+}
 
 export function startLoading() {
     return { type: ActionTypes.START_LOADING };
