@@ -13,6 +13,4 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-store.dispatch({ type: 'INITIALIZE' });
-
 registerServiceWorker();
