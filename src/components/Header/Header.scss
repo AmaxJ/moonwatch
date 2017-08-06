@@ -1,0 +1,32 @@
+@import '../variables.scss';
+
+.Header {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    padding: 7px 14px;
+    background-color: $background-black;
+    color: $off-white;
+    font-family: $font-main;
+
+    &__logo {
+        float: left;
+        height: 45px;
+        margin-right: 10px;
+    }
+
+    &__title {
+        display: initial;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+}
+
+@media all and (max-width: 500px) {
+    .Header {
+        &__title {
+            display: none;
+        }
+    }
+}
