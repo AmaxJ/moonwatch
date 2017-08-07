@@ -12,6 +12,8 @@
   },
   "rules" : {
       "react/jsx-indent": ["error", 4],
+      "react/require-default-props": "off",
+      "react/jsx-closing-bracket-location": "off",
       "indent": ["error", 4, { SwitchCase: 1 }],
       "no-underscore-dangle": "off",
       "consistent-return": "off",
@@ -24,7 +26,8 @@
       "import/prefer-default-export": ["warn"],
       "import/no-unresolved": "off",
       "react/jsx-filename-extension": "off",
-      "padded-blocks": "off"
+      "padded-blocks": "off",
+      "no-plusplus": "off"
   },
   "parser": "babel-eslint",
   "parserOptions": {

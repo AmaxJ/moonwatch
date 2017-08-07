@@ -11,7 +11,8 @@ export default {
             const params = {
                 fsym: Currencies.ETHEREUM,
                 tsym: Currencies.US_DOLLAR,
-                limit: 100,
+                limit: 50,
+                aggregate: 3,
                 e: Exchanges.COINBASE
             };
             return getMinuteHistory(params)
