@@ -6,6 +6,7 @@ const initialState = {
     coinData: {}
 };
 
+
 export default function rootReducer(state = initialState, action) {
     switch (action.type) {
         case ActionTypes.INITIALIZE:
@@ -24,6 +25,8 @@ export default function rootReducer(state = initialState, action) {
                 ...state,
                 isLoading: false
             };
+        case ActionTypes.PRICE_UPDATE:
+            return priceUpdate(state, action);
         case ActionTypes.RECIEVE_COIN_DATA:
             return {
                 ...state,
@@ -38,4 +41,32 @@ export default function rootReducer(state = initialState, action) {
         default:
             return state;
     }
+}
+
+function priceUpdate(state, action) {
+    const priceData = parseTradeDataString(action.payload);
+    // handle invalid payload
+    if (!priceData.close || !priceData.time) {
+        return state;
+    }
+    return {
+        ...state,
+        lastPrice: priceData
+    };
+}
+/*
+'{Type}~{ExchangeName}~{FromCurrency}~{ToCurrency}~{Flag}
+~{Price}~{LastUpdate}~{LastVolume}~{LastVolumeTo}~{LastTradeId}
+~{Volume24h}~{Volume24hTo}~{MaskInt}
+*/
+function parseTradeDataString(message) {
+    const messageArray = message.split('~');
+    return {
+        exchange: messageArray[1],
+        fromCurrency: messageArray[2],
+        toCurrency: messageArray[3],
+        close: parseFloat(messageArray[5]),
+        time: parseInt(messageArray[6], 10),
+        volume24hr: parseInt(messageArray[10], 10)
+    };
 }

@@ -8,7 +8,8 @@ class App extends Component {
 
     static propTypes = {
         actions: PropTypes.object.isRequired,
-        priceHistory: PropTypes.array
+        priceHistory: PropTypes.array,
+        lastPrice: PropTypes.object
     }
 
     componentDidMount() {
@@ -16,14 +17,27 @@ class App extends Component {
     }
 
     maybeRenderChart() {
-        const { priceHistory } = this.props;
+        const { priceHistory, lastPrice } = this.props;
+        const props = {
+            xTicks: {
+                number: 6,
+                size: 6
+            },
+            yTicks: {
+                number: 5,
+                size: 6
+            }
+        };
+
         if (priceHistory.length) {
             return (
                 <div className="App__chart">
                     <Chart
                       priceHistory={priceHistory}
+                      lastPrice={lastPrice}
                       height={400}
-                      width={400} />
+                      width={400}
+                      {...props} />
                 </div>
             );
         }

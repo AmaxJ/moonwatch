@@ -11,8 +11,8 @@ export default {
             const params = {
                 fsym: Currencies.ETHEREUM,
                 tsym: Currencies.US_DOLLAR,
-                limit: 50,
-                aggregate: 3,
+                limit: 60,
+                aggregate: 1,
                 e: Exchanges.COINBASE
             };
             return getMinuteHistory(params)
@@ -47,7 +47,7 @@ export default {
     }
 
 };
-//TODO unsub and sub methods for socket
+
 
 /*
 Current-price Socket Response is a string in the following format:
