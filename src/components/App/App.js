@@ -19,14 +19,12 @@ class App extends Component {
     maybeRenderChart() {
         const { priceHistory, lastPrice } = this.props;
         const props = {
-            xTicks: {
-                number: 6,
-                size: 6
-            },
             yTicks: {
                 number: 5,
-                size: 6
-            }
+                size: 3
+            },
+            xAxis: { render: false },
+            yAxis: { render: false }
         };
 
         if (priceHistory.length) {
@@ -36,7 +34,7 @@ class App extends Component {
                       priceHistory={priceHistory}
                       lastPrice={lastPrice}
                       height={400}
-                      width={400}
+                      width={600}
                       {...props} />
                 </div>
             );

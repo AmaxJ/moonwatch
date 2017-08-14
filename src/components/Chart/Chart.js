@@ -4,6 +4,7 @@ import { line } from 'd3-shape';
 import { extent } from 'd3-array';
 import each from 'lodash/each';
 import PropTypes from 'prop-types';
+import { Colors } from '../../constants';
 import './Chart.css';
 /* eslint-disable react/self-closing-comp */
 export default class Chart extends React.Component {
@@ -16,8 +17,11 @@ export default class Chart extends React.Component {
         interval: PropTypes.number,
         margin: PropTypes.object,
         priceHistory: PropTypes.array,
+        xAxis: PropTypes.object,
         xTicks: PropTypes.object,
+        yAxis: PropTypes.object,
         yTicks: PropTypes.object
+
     }
 
     static defaultProps = {
@@ -26,21 +30,23 @@ export default class Chart extends React.Component {
             top: 20,
             bottom: 20,
             right: 30,
-            left: 30
+            left: 46
         },
         xTicks: {
             number: 6,
-            size: 6
+            size: 4
         },
         yTicks: {
             number: 10,
-            size: 6
+            size: 3
         },
         interval: 1,
         lastPrice: {
             close: null,
             time: null
-        }
+        },
+        yAxis: { render: true },
+        xAxis: { render: true }
     }
 
     constructor(props) {
@@ -57,17 +63,20 @@ export default class Chart extends React.Component {
         this.ctx = this.canvas.getContext('2d');
         this.width = this.props.width - (margin.left + margin.right);
         this.height = this.props.height - (margin.top + margin.bottom);
+
         this.ctx.translate(margin.left, margin.top);
-        this.ctx.strokeStyle = 'black';
-        this.ctx.save();
+        this.ctx.strokeStyle = Colors.WHITE;
+        this.ctx.fillStyle = Colors.WHITE;
+        this.ctx.lineWidth = 1;
+
         this.setXScale(getXDomain(priceData));
         this.setYScale(getYDomain(priceData));
-        this.setLine();
+
+        this.ctx.beginPath();
+        this.renderLine(priceData);
         this.ctx.beginPath();
         this.renderYAxis();
         this.renderXAxis();
-        this.ctx.beginPath();
-        this.renderLine(priceData);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -89,31 +98,32 @@ export default class Chart extends React.Component {
         this.ctx.translate(-margin.left, -margin.top);
         this.ctx.clearRect(0, 0, width, height);
         this.ctx.translate(margin.left, margin.top);
+
+        this.ctx.beginPath();
+        this.renderLine(newPriceData);
         this.ctx.beginPath();
         this.renderYAxis();
         this.renderXAxis();
-        this.ctx.beginPath();
-        this.renderLine(newPriceData);
     }
 
     setLineColor(priceData) {
         if (priceData[0].close > priceData[priceData.length - 1].close) {
-            this.ctx.strokeStyle = 'red';
+            this.ctx.strokeStyle = Colors.CHART_RED;
         } else {
-            this.ctx.strokeStyle = 'green';
+            this.ctx.strokeStyle = Colors.CHART_GREEN;
         }
     }
 
     setXScale(domain) {
         this.xScale = scaleTime()
             .domain(domain)
-            .range([0, this.width]);
+            .range([0.5, this.width - 0.5]);
     }
 
     setYScale(domain) {
         this.yScale = scaleLinear()
             .domain(domain)
-            .range([this.height, 0]);
+            .range([this.height - 0.5, 0.5]);
     }
 
     setLine() {
@@ -136,25 +146,44 @@ export default class Chart extends React.Component {
         this.ctx.restore();
     }
 
-    renderYAxis() {
+    renderYAxis(axisBox = true) {
+        if (!this.props.yAxis.render) {
+            return;
+        }
         const { yTicks } = this.props;
         const {
             ctx,
             yScale,
-            height
+            height,
+            width
         } = this;
+
+        ctx.strokeStyle = Colors.WHITE;
+        ctx.fillStyle = Colors.WHITE;
         ctx.textAlign = 'right';
         ctx.textBaseline = 'top';
 
         const ticks = yScale.ticks(yTicks.number);
 
-        ctx.moveTo(0.5, 0);
-        ctx.lineTo(0.5, height);
+        ctx.moveTo(0, 0.5);
+        ctx.lineTo(5, 0.5);
+        ctx.moveTo(0.5, 0.5);
+        ctx.lineTo(0.5, height + 0.5);
+        ctx.lineTo(5, height + 0.5);
+
+        if (axisBox) {
+            ctx.moveTo(5, 0.5);
+            ctx.lineTo(width, 0.5);
+            ctx.lineTo(width + 0.5, height);
+            ctx.lineTo(5, height + 0.5);
+        }
 
         each(ticks, (data) => {
             ctx.moveTo(0, yScale(data));
             ctx.lineTo(-yTicks.size, yScale(data));
-            ctx.fillText(`${data}`, -yTicks.size, yScale(data));
+            ctx.font = '10px sans-serif';
+            const number = data % 1 === 0 ? data : data.toFixed(2);
+            ctx.fillText(`${number}`, -8, yScale(data) - 6.5);
         });
 
         ctx.stroke();
@@ -162,6 +191,9 @@ export default class Chart extends React.Component {
     }
 
     renderXAxis() {
+        if (!this.props.xAxis.render) {
+            return;
+        }
         const { xTicks } = this.props;
         const {
             ctx,
@@ -171,7 +203,8 @@ export default class Chart extends React.Component {
 
         const ticks = xScale.ticks(xTicks.number);
 
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = Colors.WHITE;
+        ctx.fillStyle = Colors.WHITE;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
 
@@ -201,8 +234,7 @@ export default class Chart extends React.Component {
                   className="Chart__canvas"
                   ref={this.canvasRefHandler}
                   height={this.props.height}
-                  width={this.props.width}
-                  style={{ border: '1px solid black' }}>
+                  width={this.props.width} >
                     {this.props.canvasNotSupportedText}
                 </canvas>
             </div>

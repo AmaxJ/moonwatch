@@ -34,3 +34,10 @@ export const Exchanges = {
     ETHERDELTA: 'EtherDelta',
     LIQUI: 'Liqui'
 };
+
+export const Colors = {
+    BLACK: '#0c0c0c',
+    WHITE: '#F5F0F7',
+    CHART_GREEN: '#26EF63',
+    CHART_RED: '#ff2a00'
+};
