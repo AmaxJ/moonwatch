@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "0x.js": "^0.9.1",
     "axios": "^0.16.2",
     "d3-array": "^1.2.0",
     "d3-scale": "^1.0.6",
@@ -18,15 +19,17 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "socket.io-client": "^2.0.3"
+    "socket.io-client": "^2.0.3",
+    "web3": "^1.0.0-beta.18"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "lint": "eslint --config .eslintrc .",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
+    "build": "npm run build-css && react-scripts build",
     "build-css": "node-sass-chokidar src/ -o src/",
+    "eject": "react-scripts eject",
+    "lint": "eslint --config .eslintrc .",
+    "start": "npm-run-all -p watch-css start-js",
+    "start-js": "react-scripts start",
+    "test": "react-scripts test --env=jsdom",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive"
   },
   "devDependencies": {
@@ -35,6 +38,7 @@
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.1.0"
+    "eslint-plugin-react": "^7.1.0",
+    "npm-run-all": "^4.0.2"
   }
 }

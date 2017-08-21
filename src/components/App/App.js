@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { ZeroEx } from '0x.js';
 import './App.css';
 import Header from '../Header/Header';
 import Chart from '../Chart/Chart';
@@ -9,11 +10,23 @@ class App extends Component {
     static propTypes = {
         actions: PropTypes.object.isRequired,
         priceHistory: PropTypes.array,
-        lastPrice: PropTypes.object
+        lastPrice: PropTypes.object,
+        web3: PropTypes.object
     }
 
     componentDidMount() {
         this.props.actions.initialize();
+        this.zeroEx = new ZeroEx(this.props.web3);
+        this.Init0x();
+    }
+
+    async Init0x() {
+        try {
+            const availableAddresses = await this.zeroEx.getAvailableAddressesAsync();
+            console.log(availableAddresses);
+        } catch (error) {
+            console.log('Caught error: ', error);
+        }
     }
 
     maybeRenderChart() {
