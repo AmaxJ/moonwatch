@@ -137,7 +137,7 @@ export default class Chart extends React.Component {
         this.canvas = el;
     }
 
-    renderLine(priceData, width = 1) {
+    renderLine(priceData, width = 2) {
         this.setLine();
         this.line(priceData);
         this.setLineColor(priceData);

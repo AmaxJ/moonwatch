@@ -1,19 +1,15 @@
 @import '../variables.scss';
 
 .App {
-    height: 100%;
 
     &__container {
-        display: flex;
-        height: 100%;
         margin-top: 60px;
         background-color: $background-black;
     }
 
     &__chart {
-        margin: auto;
-        width: 100%;
-        height: 500px;
+        display: flex;
+        justify-content: center;
     }
 }
 
