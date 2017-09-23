@@ -1,40 +1,49 @@
 {
-  "name": "mooncharts",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "axios": "^0.16.2",
-    "d3-array": "^1.2.0",
-    "d3-scale": "^1.0.6",
-    "d3-shape": "^1.2.0",
-    "lodash": "^4.17.4",
-    "node-sass-chokidar": "0.0.3",
-    "normalize.css": "^7.0.0",
-    "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-redux": "^5.0.5",
-    "react-scripts": "1.0.10",
-    "redux": "^3.7.2",
-    "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0",
-    "socket.io-client": "^2.0.3"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "lint": "eslint --config .eslintrc .",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive"
-  },
-  "devDependencies": {
-    "babel-eslint": "^7.2.3",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^15.1.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.1.0"
-  }
+    "name": "mooncharts",
+    "version": "0.1.0",
+    "private": true,
+    "main": "index.js",
+    "dependencies": {
+        "axios": "^0.16.2",
+        "d3-array": "^1.2.0",
+        "d3-scale": "^1.0.6",
+        "d3-shape": "^1.2.0",
+        "lodash": "^4.17.4",
+        "normalize.css": "^7.0.0",
+        "prop-types": "^15.5.10",
+        "react": "^15.6.1",
+        "react-dom": "^15.6.1",
+        "react-redux": "^5.0.5",
+        "redux": "^3.7.2",
+        "redux-logger": "^3.0.6",
+        "redux-thunk": "^2.2.0",
+        "socket.io-client": "^2.0.3"
+    },
+    "scripts": {
+        "lint": "eslint --config .eslintrc .",
+        "build": "webpack",
+        "watch": "webpack --progress --watch",
+        "start": "webpack-dev-server --open"
+    },
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-eslint": "^8.0.0",
+        "babel-loader": "^7.1.2",
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
+        "babel-preset-env": "^1.6.0",
+        "babel-preset-react": "^6.24.1",
+        "css-loader": "^0.28.7",
+        "eslint": "^4.7.1",
+        "eslint-config-airbnb": "^15.1.0",
+        "eslint-plugin-import": "^2.7.0",
+        "eslint-plugin-jsx-a11y": "^6.0.2",
+        "eslint-plugin-react": "^7.3.0",
+        "html-webpack-plugin": "^2.30.1",
+        "node-sass": "^4.5.3",
+        "sass-loader": "^6.0.6",
+        "style-loader": "^0.18.2",
+        "webpack": "^3.6.0",
+        "webpack-dev-server": "^2.8.2"
+    }
 }

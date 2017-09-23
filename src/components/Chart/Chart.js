@@ -5,7 +5,7 @@ import { extent } from 'd3-array';
 import each from 'lodash/each';
 import PropTypes from 'prop-types';
 import { Colors } from '../../constants';
-import './Chart.css';
+import './Chart.scss';
 /* eslint-disable react/self-closing-comp */
 export default class Chart extends React.Component {
 

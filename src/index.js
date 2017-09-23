@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import 'normalize.css';
+// import 'normalize.css';
 import store from './redux/store';
 import App from './redux/AppContainer';
-import registerServiceWorker from './registerServiceWorker';
-import './index.css';
+import './index.scss';
 
 ReactDOM.render(
     <Provider store={store}>
@@ -13,5 +12,3 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
-
-registerServiceWorker();

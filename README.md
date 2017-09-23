@@ -1,3 +1,0 @@
-# MoonWatch.io
-
-## Coming soon...

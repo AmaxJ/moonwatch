@@ -1,6 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import './Header.css';
+import './Header.scss';
 import Logo from '../Logo/Logo';
 
 export default function () {
