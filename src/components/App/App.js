@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './App.scss';
 import Header from '../Header/Header';
 import Chart from '../Chart/Chart';
+import PriceDisplay from '../PriceDisplay/PriceDisplay';
+import { isMobile } from '../../utilities';
+
+import './App.scss';
 
 class App extends Component {
 
@@ -27,7 +30,7 @@ class App extends Component {
             yAxis: { render: false }
         };
 
-        if (priceHistory.length) {
+        if (priceHistory.length && !isMobile()) {
             return (
                 <div className="App__chart">
                     <Chart
@@ -46,7 +49,12 @@ class App extends Component {
             <div className="App">
                 <Header />
                 <section className="App__container">
-                    {this.maybeRenderChart()}
+                    <div className="App__row">
+                        <div className="App__price-display">
+                            <PriceDisplay lastPrice={this.props.lastPrice} />
+                        </div>
+                        {this.maybeRenderChart()}
+                    </div>
                 </section>
             </div>
         );

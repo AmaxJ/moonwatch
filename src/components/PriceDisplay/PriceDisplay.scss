@@ -1,0 +1,28 @@
+@import '../variables.scss';
+
+.PriceDisplay {
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    text-align: center;
+    color: white;
+    border-left: 1px dashed $grey;
+    border-right: 1px dashed $grey;
+
+    &__row {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    &__price {
+        font-size: $price-font-large;
+    }
+
+    &__timestamp {
+        display: flex;
+        font-size: 10px;
+    }
+
+
+}
