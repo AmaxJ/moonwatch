@@ -9,7 +9,7 @@ export default function () {
             <div className="Header__logo">
                 <Logo />
             </div>
-            <div className="Header__title">MoonWatch</div>
+            <div className="Header__title">Moon<span className="w">W</span>atch</div>
         </div>
     );
 }
