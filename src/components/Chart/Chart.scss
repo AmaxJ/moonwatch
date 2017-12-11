@@ -2,6 +2,9 @@
 
 .Chart {
     &__container {
+        position: relative;
+        height: 40vh;
+        width: 80vw;
         display: flex;
         justify-content: center;
     }

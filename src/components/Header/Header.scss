@@ -11,6 +11,7 @@
     background-color: $background-black;
     color: white;
     font-family: $font-main;
+    z-index: 1;
 
     &__logo {
         float: left;
@@ -31,4 +32,8 @@
             display: none;
         }
     }
+}
+
+.w {
+    color: $green1;
 }

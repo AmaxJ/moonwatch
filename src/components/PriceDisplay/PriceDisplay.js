@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './PriceDisplay.scss';
 
-function PriceDisplay(props) {
+export default function PriceDisplay(props) {
 
     const renderExchangeAndTradingPair = () => {
         if (!props.lastPrice) {
-            return 'loading';
+            return 'Loading';
         }
         return (
             <div className="PriceDisplay__trading-pair">
@@ -14,7 +14,7 @@ function PriceDisplay(props) {
                     {`${props.lastPrice.fromCurrency} / ${props.lastPrice.toCurrency}`}
                 </div>
                 <div>
-                    {props.lastPrice ? props.lastPrice.exchange : 'loading..'}
+                    {props.lastPrice ? props.lastPrice.exchange : 'Loading..'}
                 </div>
             </div>
         );
@@ -22,7 +22,7 @@ function PriceDisplay(props) {
 
     const formatAndRenderTime = () => {
         if (!props.lastPrice) {
-            return 'loading';
+            return 'Loading';
         }
         const date = new Date(props.lastPrice.time * 1000);
         const hour = date.getHours();
@@ -39,7 +39,7 @@ function PriceDisplay(props) {
         <div className="PriceDisplay">
             <div className="PriceDisplay__row">
                 <div className="PriceDisplay__price">
-                    {props.lastPrice ? props.lastPrice.close : 'loading..'}
+                    {props.lastPrice ? props.lastPrice.close.toFixed(2) : 'Loading..'}
                 </div>
             </div>
             <div className="PriceDisplay__row">
@@ -62,6 +62,3 @@ PriceDisplay.propTypes = {
         volume24hr: PropTypes.number
     })
 };
-
-
-export default PriceDisplay;

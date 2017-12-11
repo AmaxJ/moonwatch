@@ -23,7 +23,8 @@
       "react/jsx-filename-extension": "off",
       "padded-blocks": "off",
       "no-plusplus": "off",
-      "jsx-a11y/href-no-hash": "off"
+      "jsx-a11y/href-no-hash": "off",
+      "no-debugger": "off",
   },
   "parser": "babel-eslint",
   "parserOptions": {
