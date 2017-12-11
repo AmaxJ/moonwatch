@@ -21,7 +21,7 @@
         "lint": "eslint --config .eslintrc .",
         "build": "webpack",
         "watch": "webpack --progress --watch",
-        "start": "webpack-dev-server --open"
+        "start": "env NODE_ENV=development webpack-dev-server"
     },
     "devDependencies": {
         "babel-core": "^6.26.0",

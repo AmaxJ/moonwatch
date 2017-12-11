@@ -13,11 +13,36 @@ export default class Chart extends React.Component {
         interval: PropTypes.number,
         lastPrice: PropTypes.object,
         priceHistory: PropTypes.array,
-        width: PropTypes.number
+        width: PropTypes.number,
+        chartOptions: PropTypes.object
     }
 
     static defaultProps = {
-        interval: 10
+        interval: 60,
+        chartOptions: {
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Time'
+                    },
+                    time: {
+                        unit: 'minute'
+                    },
+                    ticks: {
+                        maxTicksLimit: 10
+                    }
+                }]
+            },
+            elements: {
+                point: {
+                    radius: 0
+                }
+            }
+        }
     }
 
     constructor(props) {
@@ -32,19 +57,7 @@ export default class Chart extends React.Component {
     }
 
     componentDidMount() {
-        // const { margin } = this.props;
-        const margin = {
-            top: 20,
-            bottom: 20,
-            right: 30,
-            left: 46
-        };
-        // const { priceData } = this.state;
         this.ctx = this.canvas.getContext('2d');
-        this.ctx.translate(margin.left, margin.top);
-        this.ctx.strokeStyle = Colors.WHITE;
-        this.ctx.fillStyle = Colors.WHITE;
-        this.ctx.lineWidth = 1;
         this.chart = new ChartJS(this.ctx, {
             type: 'line',
             data: {
@@ -53,28 +66,12 @@ export default class Chart extends React.Component {
                     label: 'Price', // hidden
                     data: this.priceData,
                     backgroundColor: 'rgba(0, 0, 0, 0)',
-                    borderColor: Colors.WHITE,
+                    borderColor: this.getLineColor(),
                     borderWidth: 0.8,
                     lineTension: 0
                 }]
             },
-            options: {
-                legend: {
-                    display: false
-                },
-                scales: {
-                    xAxes: [{
-                        time: {
-                            unit: 'minute'
-                        }
-                    }]
-                },
-                elements: {
-                    point: {
-                        radius: 0
-                    }
-                }
-            }
+            options: this.props.chartOptions
         });
     }
 
@@ -93,11 +90,19 @@ export default class Chart extends React.Component {
 
         this.chart.data.datasets.forEach((dataset) => {
             dataset.data = this.priceData;
+            dataset.borderColor = this.getLineColor();
         });
 
         this.chart.update({
             duration: 0
         });
+    }
+
+    getLineColor() {
+        if (this.priceData[0] > this.priceData[this.priceData.length - 1]) {
+            return Colors.CHART_RED;
+        }
+        return Colors.CHART_GREEN;
     }
 
     canvasRefHandler = (el) => {
