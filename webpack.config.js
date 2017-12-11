@@ -1,6 +1,7 @@
 /* eslint-disable global-require */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
@@ -9,6 +10,13 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'MoonCharts',
             template: './src/index.html'
+        }),
+        new UglifyJsPlugin({
+            test: /\.js($|\?)/i,
+            uglifyOptions: {
+                ie8: false,
+                ecma: 8
+            }
         })
     ],
     module: {
@@ -43,6 +51,7 @@ module.exports = {
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: process.env.NODE_ENV === 'development' ?
+            path.resolve(__dirname, 'dist') : path.resolve(__dirname, '.')
     }
 };
